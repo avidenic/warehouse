@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NiceLabel.Demo;
+
+service Warehouse {
+    rpc SendProduct(SendProductRequest) returns (SendProductReply);
+}
+
+message SendProductRequest{
+    int32 Quantity = 1;
+}
+
+message SendProductReply {
+    string Message = 1;
+    int64 Sum = 2;
+}
