@@ -1,15 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.61
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{08135959-845E-4B0B-9CB6-D358831D5041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceLabel.Demo.Server", "src\Server\NiceLabel.Demo.Server.csproj", "{F056DD86-28AD-4AA5-93DF-1FA5E35C5075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceLabel.Demo.Server", "src\Server\NiceLabel.Demo.Server.csproj", "{F056DD86-28AD-4AA5-93DF-1FA5E35C5075}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{207420AF-9AEF-4F12-9B87-C684FEE5D1F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceLabel.Demo.Server.Tests", "src\Tests\NiceLabel.Demo.Server.Tests\NiceLabel.Demo.Server.Tests.csproj", "{11C6C27A-6930-407F-9851-51E03B707166}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceLabel.Demo.Server.Tests", "src\Tests\NiceLabel.Demo.Server.Tests\NiceLabel.Demo.Server.Tests.csproj", "{11C6C27A-6930-407F-9851-51E03B707166}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceLabel.Demo.Client", "src\Client\NiceLabel.Demo.Client.csproj", "{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{2ED93BA8-7E61-402E-9B5D-5AABDE169E09}"
+	ProjectSection(SolutionItems) = preProject
+		src\Protos\warehouse.proto = src\Protos\warehouse.proto
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F056DD86-28AD-4AA5-93DF-1FA5E35C5075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -48,10 +52,30 @@ Global
 		{11C6C27A-6930-407F-9851-51E03B707166}.Release|x64.Build.0 = Release|Any CPU
 		{11C6C27A-6930-407F-9851-51E03B707166}.Release|x86.ActiveCfg = Release|Any CPU
 		{11C6C27A-6930-407F-9851-51E03B707166}.Release|x86.Build.0 = Release|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Debug|x64.Build.0 = Debug|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Debug|x86.Build.0 = Debug|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Release|x64.ActiveCfg = Release|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Release|x64.Build.0 = Release|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Release|x86.ActiveCfg = Release|Any CPU
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F056DD86-28AD-4AA5-93DF-1FA5E35C5075} = {08135959-845E-4B0B-9CB6-D358831D5041}
 		{207420AF-9AEF-4F12-9B87-C684FEE5D1F2} = {08135959-845E-4B0B-9CB6-D358831D5041}
 		{11C6C27A-6930-407F-9851-51E03B707166} = {207420AF-9AEF-4F12-9B87-C684FEE5D1F2}
+		{7FDAE6B5-FFF7-4A1D-B66C-89D25855879A} = {08135959-845E-4B0B-9CB6-D358831D5041}
+		{2ED93BA8-7E61-402E-9B5D-5AABDE169E09} = {08135959-845E-4B0B-9CB6-D358831D5041}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3A00CA6-7326-434C-B6F2-70803469297A}
 	EndGlobalSection
 EndGlobal
