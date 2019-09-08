@@ -1,4 +1,4 @@
-﻿using NiceLabel.Demo.Client.Events;
+using NiceLabel.Demo.Client.Events;
 using NiceLabel.Demo.Client.Pages;
 using System;
 using System.ComponentModel;
@@ -23,7 +23,8 @@ namespace NiceLabel.Demo.Client
 
         private void OnLoginSuccess(object sender, LoginEventArgs args)
         {
-            _frame.Navigate(_productIncreasePage, args.Token);
+            _productIncreasePage.SetToken(args.Token);
+            _frame.Navigate(_productIncreasePage);
         }
 
         protected override void OnInitialized(EventArgs e)

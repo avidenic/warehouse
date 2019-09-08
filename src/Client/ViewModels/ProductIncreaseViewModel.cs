@@ -1,5 +1,6 @@
 using NiceLabel.Demo.Client.Services;
 using NiceLabel.Demo.Common.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NiceLabel.Demo.Client.ViewModels
@@ -12,7 +13,18 @@ namespace NiceLabel.Demo.Client.ViewModels
             _warehouseService = warehouseService;
         }
 
-        public Token Token { get; set; }
+        public string Hello => $"Hello {Token?.Username}!";
+
+        private Token _token;
+        public Token Token
+        {
+            get { return _token; }
+            set
+            {
+                _token = value;
+                OnPropertyChanged(nameof(Hello));
+            }
+        }
 
         private int _addQuantity;
         public int AddQuantity
@@ -28,11 +40,11 @@ namespace NiceLabel.Demo.Client.ViewModels
             }
         }
 
-        private long _sum;
-        public long Sum
+        private string _messageColour;
+        public string MessageColour
         {
-            get { return _sum; }
-            set { }
+            get { return _messageColour; }
+            set { _messageColour = value; OnPropertyChanged(nameof(MessageColour)); }
         }
 
         public async Task<bool> IncreaseQuantity()
@@ -40,21 +52,42 @@ namespace NiceLabel.Demo.Client.ViewModels
             if (string.IsNullOrEmpty(Token?.Value))
             {
                 Message = "Something is wrong, please re-open the application!";
+                SetMessageType(MessageType.Error);
                 return false;
             }
             if (AddQuantity < 1)
             {
                 Message = "Quantity must be greater than 0!";
+                SetMessageType(MessageType.Error);
                 return false;
             }
 
-            await _warehouseService.IncreaseQuantity(Token, AddQuantity).ConfigureAwait(false);
+            var result = await _warehouseService.IncreaseQuantity(Token, AddQuantity).ConfigureAwait(false);
+            Message = $"Success! Current quantity: {result.Sum}";
+            SetMessageType(MessageType.Success);
             return true;
         }
 
         public bool IsValidQuantityInput(string input)
         {
-            return int.TryParse(input, out int result) && result < 1000; // arbitrary max
+            return int.TryParse(input, out int result);
         }
+
+        private void SetMessageType(MessageType type)
+        {
+            MessageColour = _colours[type];
+        }
+
+        private Dictionary<MessageType, string> _colours = new Dictionary<MessageType, string>
+        {
+            { MessageType.Error, "Red" },
+            { MessageType.Success, "Green" }
+        };
+    }
+
+    enum MessageType
+    {
+        Error,
+        Success
     }
 }

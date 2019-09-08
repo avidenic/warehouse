@@ -7,13 +7,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="200" d:DesignWidth="400"
       Title="ProductIncreasePage" 
-      Background="White" 
-      Loaded="Page_Loaded">
+      Background="White">
     <Canvas>
-        <Label Content="Hello user" Canvas.Left="10" Canvas.Top="10"></Label>
+        <Label Content="{Binding Path=Hello}" Canvas.Left="10" Canvas.Top="10"></Label>
         <Label Content="Increase quantity by" Canvas.Left="15" Canvas.Top="70"></Label>
-        <TextBox Width="42" Canvas.Left="136" Canvas.Top="75" MaxLength="4" PreviewTextInput="TextBox_PreviewTextInput" CommandManager.PreviewCanExecute="TextBox_PreviewCanExecute" Text="{Binding Path=AddQuantity}"></TextBox>
+        <TextBox Width="42" Canvas.Left="136" Canvas.Top="75" MaxLength="4" PreviewTextInput="TextBox_PreviewTextInput" CommandManager.PreviewCanExecute="TextBox_PreviewCanExecute" Text="{Binding Path=AddQuantity}" TextChanged="TextBox_TextChanged"></TextBox>
         <Button Content="Increase!" Canvas.Left="192" Canvas.Top="74" Width="67" Click="Button_Click"></Button>
-        <Label Content="{Binding Path=Message}" Visibility="{Binding Path=MessageVisibility}" Canvas.Left="15" Canvas.Top="100" Width="223"></Label>
+        <Label Content="{Binding Path=Message}" Visibility="{Binding Path=MessageVisibility}" Canvas.Left="15" Canvas.Top="100" Width="302" Foreground="{Binding Path=MessageColour}"></Label>
     </Canvas>
 </Page>

@@ -1,5 +1,6 @@
 using NiceLabel.Demo.Client.ViewModels;
 using NiceLabel.Demo.Common.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,26 +20,9 @@ namespace NiceLabel.Demo.Client.Pages
             InitializeComponent();
         }
 
-        private void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-            ViewModel.Token = e.ExtraData as Token;
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            NavigationService.LoadCompleted += NavigationService_LoadCompleted;
-        }
-
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!await ViewModel.IncreaseQuantity())
-            {
-
-            }
-            else
-            {
-
-            }
+            await ViewModel.IncreaseQuantity();
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -50,5 +34,12 @@ namespace NiceLabel.Demo.Client.Pages
         {
             e.Handled = e.Command == ApplicationCommands.Paste;
         }
+
+        public void SetToken(Token token)
+        {
+            ViewModel.Token = token;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) => ViewModel.Message = string.Empty;
     }
 }

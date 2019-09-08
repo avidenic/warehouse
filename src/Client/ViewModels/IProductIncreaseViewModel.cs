@@ -12,5 +12,9 @@ namespace NiceLabel.Demo.Client.ViewModels
         Task<bool> IncreaseQuantity();
 
         bool IsValidQuantityInput(string input);
+
+        string MessageColour { get; set; }
+
+        string Hello { get; }
     }
 }
