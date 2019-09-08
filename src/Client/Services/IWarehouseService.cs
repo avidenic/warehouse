@@ -1,4 +1,4 @@
-﻿using NiceLabel.Demo.Common.Models;
+using NiceLabel.Demo.Common.Models;
 using System.Threading.Tasks;
 
 namespace NiceLabel.Demo.Client.Services

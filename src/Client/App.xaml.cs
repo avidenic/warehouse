@@ -1,8 +1,11 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NiceLabel.Demo.Client.Extensions;
 using NiceLabel.Demo.Client.Pages;
 using NiceLabel.Demo.Client.Services;
 using NiceLabel.Demo.Client.ViewModels;
 using System;
+using System.IO;
 using System.Windows;
 
 namespace NiceLabel.Demo.Client
@@ -17,7 +20,12 @@ namespace NiceLabel.Demo.Client
 
         public App()
         {
-            ConfigureServices(_serviceCollection);
+            var config = new ConfigurationBuilder()
+                           .SetBasePath(Directory.GetCurrentDirectory())
+                           .AddJsonFile($"appsettings.json", optional: false)
+                           .Build();
+
+            ConfigureServices(_serviceCollection, config);
             _serviceProvider = _serviceCollection.BuildServiceProvider();
         }
 
@@ -26,7 +34,7 @@ namespace NiceLabel.Demo.Client
             _serviceProvider.GetRequiredService<MainWindow>().Show();
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        private void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddHttpClient<IAuthenticationService, AuthenticationService>();
             services.AddHttpClient<IWarehouseService, WarehouseService>();
@@ -35,6 +43,7 @@ namespace NiceLabel.Demo.Client
             services.AddTransient<MainWindow>();
             services.AddTransient<ILoginPage, LoginPage>();
             services.AddTransient<IProductIncreasePage, ProductIncreasePage>();
+            services.AddConfigurations(configuration);
         }
     }
 }

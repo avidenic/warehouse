@@ -3,8 +3,6 @@ using NiceLabel.Demo.Common.Exceptions;
 using NiceLabel.Demo.Common.Models;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace NiceLabel.Demo.Client.ViewModels
 {

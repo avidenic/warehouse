@@ -1,4 +1,4 @@
-﻿using NiceLabel.Demo.Common.Exceptions;
+using NiceLabel.Demo.Common.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,12 +24,12 @@ namespace NiceLabel.Demo.Client.Services
             HttpClient = httpClient;
         }
 
-        protected virtual HttpContent GetStringContent<T>(T model) where T: class
+        protected virtual HttpContent GetStringContent<T>(T model) where T : class
         {
             return new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
         }
 
-        protected async Task<T> ExecuteAsync<T>( Func<Task<HttpResponseMessage>> call)
+        protected async Task<T> ExecuteAsync<T>(Func<Task<HttpResponseMessage>> call)
         {
             using var response = await call().ConfigureAwait(false);
             using var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);

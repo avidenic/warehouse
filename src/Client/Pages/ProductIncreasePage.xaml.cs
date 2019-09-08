@@ -1,10 +1,8 @@
 using NiceLabel.Demo.Client.ViewModels;
 using NiceLabel.Demo.Common.Models;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace NiceLabel.Demo.Client.Pages
 {
