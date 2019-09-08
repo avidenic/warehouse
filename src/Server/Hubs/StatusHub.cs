@@ -1,10 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace NiceLabel.Demo.Server.Hubs
 {
+    [AllowAnonymous]
     public class StatusHub : Hub
     {
         private readonly WarehouseContext _context;
