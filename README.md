@@ -18,7 +18,7 @@ Client application is a windows desktop application written using the new WPF in
 ## How to run the app
 First, clone the repository. Make sure you have installed Visual Studio 2019 - Preview version. Community edition will do. Check both dekstop development and web development when installing. Open terminal/command line tool in root folder of this repository and check dotnet SDK version by typing: "dotnet --version". It should be "3.0.100-preview9-014004". If it is not, install it from preview channel: https://dotnet.microsoft.com/download/dotnet-core/3.0
 
-After all the checks, open the solution. Right click on the server application project, select properties and go to "Debug" section. Add new environment variable called "ASPNETCORE_ENVIRONMENT" with value "Development". Save the file.
+After all the checks, open the solution. Right click on the "NiceLabel.Demo.Server" project, select properties and go to "Debug" section. Add new environment variable called "ASPNETCORE_ENVIRONMENT" with value "Development". Save the file.
 
 A new folder called "Properties" should've been created, containing a file called "launchSettings.json";
 
