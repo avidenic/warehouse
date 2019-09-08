@@ -1,14 +1,14 @@
 {
   "name": "Server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Listing customers in real time",
+  "main": "customers.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Anže Videnič",
+  "license": "MIT",
   "dependencies": {
     "@aspnet/signalr": "^1.1.4"
   }
