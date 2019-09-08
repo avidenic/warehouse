@@ -73,7 +73,6 @@ namespace NiceLabel.Demo.Server
                 app.UseDeveloperExceptionPage();
                 using var scope = app.ApplicationServices.CreateScope();
                 var context = scope.ServiceProvider.GetService<WarehouseContext>();
-                context.Database.EnsureCreated();
                 context.Database.Migrate();
             }
             else
