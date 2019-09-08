@@ -11,15 +11,11 @@ namespace NiceLabel.Demo.Client.Extensions
         {
             services.AddConfiguration<Server>(config);
         }
-        private static T AddConfiguration<T>(this IServiceCollection services, IConfiguration config, string configSestionName = null) where T : class, new()
+        private static T AddConfiguration<T>(this IServiceCollection services, IConfiguration config) where T : class, new()
         {
-            var type = typeof(T);
-            if (string.IsNullOrEmpty(configSestionName))
-            {
-                configSestionName = type.Name;
-            }
+            var type = typeof(T);           
             var option = Activator.CreateInstance(type) as T;
-            config.GetSection(configSestionName).Bind(option, o => o.BindNonPublicProperties = true);
+            config.GetSection(type.Name).Bind(option, o => o.BindNonPublicProperties = true);
 
             services.AddSingleton<T>(option);
 

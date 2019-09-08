@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using NiceLabel.Demo.Common.Models;
+using NiceLabel.Demo.Server.Hubs;
 using System;
 using System.Threading.Tasks;
 
@@ -11,8 +13,10 @@ namespace NiceLabel.Demo.Server.Controllers
     public class WarehouseController : Controller
     {
         private readonly WarehouseContext _warehouseContext;
-        public WarehouseController(WarehouseContext warehouseContext)
+        private readonly IHubContext<StatusHub> _hub;
+        public WarehouseController(WarehouseContext warehouseContext, IHubContext<StatusHub> hub)
         {
+            _hub = hub;
             _warehouseContext = warehouseContext;
         }
 
@@ -34,6 +38,7 @@ namespace NiceLabel.Demo.Server.Controllers
 
             customer.IncreaseQuantity(request.QuantityToAdd);
             await _warehouseContext.SaveChangesAsync();
+            await _hub.Clients.All.SendAsync("update", customer);
 
             return Ok(new ProductReply { Sum = customer.Quantity });
         }

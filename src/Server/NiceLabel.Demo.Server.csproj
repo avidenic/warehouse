@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Common\NiceLabel.Demo.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>
