@@ -9,7 +9,7 @@ Client application is a windows desktop application written using the new WPF in
 
 ## Difference between this solution and requirements
 * Client side is created WPF, but .Net Core 3 is used to test viability of the framework
-* Server side is using ASP.NET Core 3 instead of ASP.NET MVC. The first idea was to test viability of the gRPC protocol, but as I found out, there are too many bugs with it. So I opted for communication via REST.
+* Server side is using ASP.NET Core 3 instead of ASP.NET MVC. The first idea was to test viability of the gRPC protocol, but as I found out, there are too many bugs with it. So I opted for communication via REST. I also wanted to see the differences compared to ASP.NET Core 2.x
 * Some shortcuts were taken and application was not implemented entirely using proper standards and code practices as I was pressed for time
 * Password are hashed using simple unsalted SHA256 hash, but in real world hash would be salted. They are not obfuscated on client side as communication is expected to be done over HTTPS in real world as opposed via HTTP for developing purposes
 * Sadly no time for unit tests, except one - to show general familiarization with the concept
