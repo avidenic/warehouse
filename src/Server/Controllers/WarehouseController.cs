@@ -30,7 +30,7 @@ namespace NiceLabel.Demo.Server.Controllers
 
             var username = HttpContext.User.Identity.Name;
             var customer = await _warehouseContext.Customers.FirstOrDefaultAsync(x => x.Name == username);
-            
+
             if (customer == null)
             {
                 throw new InvalidOperationException("User does not exist, something went terribly wrong!");
@@ -38,7 +38,7 @@ namespace NiceLabel.Demo.Server.Controllers
 
             customer.IncreaseQuantity(request.QuantityToAdd);
             await _warehouseContext.SaveChangesAsync();
-            await _hub.Clients.All.SendAsync("update", customer);
+            await _hub.Clients.All.SendAsync("update", new { customer.Name, customer.Quantity });
 
             return Ok(new ProductReply { Sum = customer.Quantity });
         }

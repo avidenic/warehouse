@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace NiceLabel.Demo.Server.Hubs
         {
             var data = await _context.Customers.ToArrayAsync();
 
-            await Clients.Caller.SendAsync("customers", data);
+            await Clients.Caller.SendAsync("customers", data.Select(x=> new { x.Name, x.Quantity}) );
         }
     }
 }
