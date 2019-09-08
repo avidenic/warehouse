@@ -24,6 +24,7 @@ namespace NiceLabel.Demo.Client.Pages
         {
             if (await ViewModel.Login(Password.Password))
             {
+                Password.Password = string.Empty; // password is in plain text - do not leave it in memory
                 OnLoginSuccess?.Invoke(this, new LoginEventArgs(ViewModel.Token));
             }
         }
