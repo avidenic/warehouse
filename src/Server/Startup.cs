@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace NiceLabel.Demo.Server
 {
     public class Startup
     {
-        private const string CorsPolicyName = "AllowCors";
+        private const string CorsPolicyName = "default";
 
         public Startup()
         {
@@ -30,6 +31,10 @@ namespace NiceLabel.Demo.Server
             services.AddControllers().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddAuthorization(p =>
             {
+                p.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+
                 p.AddPolicy(JwtBearerDefaults.AuthenticationScheme, o =>
                 {
                     o.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
@@ -46,16 +51,6 @@ namespace NiceLabel.Demo.Server
                     ValidateAudience = false,
                     ValidateLifetime = true
                 };
-            });
-
-            services.AddCors(o =>
-            {
-                o.AddPolicy(CorsPolicyName, b =>
-                {
-                    b.AllowAnyOrigin()
-                     .AllowAnyHeader()
-                     .AllowAnyMethod();
-                });
             });
 
             services.AddDbContext<WarehouseContext>(o =>

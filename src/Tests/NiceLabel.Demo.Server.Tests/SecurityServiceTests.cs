@@ -1,13 +1,7 @@
-using System;
-using Xunit;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using NiceLabel.Demo.Server.Infrastructure;
-using NiceLabel.Demo.Server.Models;
 using NiceLabel.Demo.Server.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using Xunit;
 
 namespace NiceLabel.Demo.Server.Tests
 {

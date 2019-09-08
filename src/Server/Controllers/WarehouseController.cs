@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +19,7 @@ namespace NiceLabel.Demo.Server.Controllers
             _warehouseContext = warehouseContext;
         }
 
-        [HttpPut, Route("product"), Authorize]
+        [HttpPut, Route("product")]
         public async Task<IActionResult> AddQuantity([FromBody]ProductRequest request)
         {
             if (!ModelState.IsValid)
