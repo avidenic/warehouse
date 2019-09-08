@@ -1,14 +1,10 @@
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using NiceLabel.Demo.Server.Infrastructure;
+using NiceLabel.Demo.Common.Models;
 using NiceLabel.Demo.Server.Models;
-using Server.Services;
+using NiceLabel.Demo.Server.Services;
+using System.Threading.Tasks;
 
 namespace NiceLabel.Demo.Server.Controllers
 {
@@ -17,8 +13,7 @@ namespace NiceLabel.Demo.Server.Controllers
     {
         private readonly ISecurityService _securityService;
         private readonly WarehouseContext _context;
-
-        private readonly JwtSecurityTokenHandler TokenHanlder = new JwtSecurityTokenHandler();
+        private const string ErrorMessage = "Username or password is incorrect";
 
         public TokenController(WarehouseContext context, ISecurityService securityService)
         {
@@ -31,21 +26,19 @@ namespace NiceLabel.Demo.Server.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Username or password were incorrect");
+                return BadRequest(ModelState);
             }
-            var user = await _context.Customers.FirstOrDefaultAsync(x => x.Name == login.Username && x.Password == login.PasswordHash);
+            var user = await _context.Customers.FirstOrDefaultAsync(x => x.Name.ToUpper() == login.Username.ToUpper() && x.Password == login.PasswordHash);
             if (user == null)
             {
-                return BadRequest("Username or password were incorrect");
+                ModelState.AddModelError(nameof(login.Password), ErrorMessage);
+                ModelState.AddModelError(nameof(login.Username), ErrorMessage);
+                return BadRequest(ModelState);
             }
 
-            var claims = new[] { new Claim(ClaimTypes.Name, login.Username) };
-            var credentials = new SigningCredentials(_securityService.SecurityKey, SecurityAlgorithms.HmacSha512);
-            var token = new JwtSecurityToken("localhost", "wpfClient", claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials);
-            return Ok(new
-            {
-                Token = TokenHanlder.WriteToken(token)
-            });
+            var token = _securityService.GenerateToken(user.Name);
+            
+            return Ok(new Token(token, user.Name));
         }
     }
 }

@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace NiceLabel.Demo.Server
 {
@@ -19,15 +14,16 @@ namespace NiceLabel.Demo.Server
         }
 
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(options =>
-                {
-                    options.ListenLocalhost(5005, l =>
-                    {
-                        l.UseHttps();
-                        l.Protocols = HttpProtocols.Http1AndHttp2;
-                    });
-                })
-                .UseStartup<Startup>();
+             WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((context, builder) =>
+            {
+                builder.SetBasePath(Directory.GetCurrentDirectory());
+                builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true);
+                builder.AddEnvironmentVariables();
+                builder.AddCommandLine(args);
+            })
+            .UseKestrel()
+            .UseStartup<Startup>();
     }
 }

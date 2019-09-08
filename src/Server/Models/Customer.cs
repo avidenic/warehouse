@@ -12,5 +12,13 @@ namespace NiceLabel.Demo.Server.Models
         public string Password { get; set; }
 
         public long Quantity { get; set; }
+
+        public void IncreaseQuantity(int quantity)
+        {
+            if (quantity > 0)
+            {
+                Quantity += quantity;
+            }
+        }
     }
 }

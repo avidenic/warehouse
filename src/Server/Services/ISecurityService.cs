@@ -1,9 +1,11 @@
 using Microsoft.IdentityModel.Tokens;
 
-namespace Server.Services
+namespace NiceLabel.Demo.Server.Services
 {
     public interface ISecurityService
     {
         SymmetricSecurityKey SecurityKey { get; }
+
+        string GenerateToken(string username);
     }
 }

@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NiceLabel.Demo.Client.Events;
+using NiceLabel.Demo.Client.Pages;
+using System;
+using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NiceLabel.Demo.Client
 {
@@ -20,9 +11,32 @@ namespace NiceLabel.Demo.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ILoginPage _loginPage;
+        private readonly IProductIncreasePage _productIncreasePage;
+        public MainWindow(ILoginPage loginPage, IProductIncreasePage productIncreasePage)
         {
+            _loginPage = loginPage;
+            _productIncreasePage = productIncreasePage;
+            _loginPage.OnLoginSuccess += OnLoginSuccess;
             InitializeComponent();
+        }
+
+        private void OnLoginSuccess(object sender, LoginEventArgs args)
+        {
+            _frame.Navigate(_productIncreasePage, args.Token);
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            _frame.Navigate(_loginPage);
+            base.OnInitialized(e);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            // cleanup
+            _loginPage.OnLoginSuccess -= OnLoginSuccess;
+            base.OnClosing(e);
         }
     }
 }
