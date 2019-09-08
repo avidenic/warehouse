@@ -23,3 +23,5 @@ After all the checks, open the solution. Right click on the server application p
 A new folder called "Properties" should've been created, containing a file called "launchSettings.json";
 
 After that you can start debugging by pressing F5, both server and client should be started.
+
+After both applications start, open a browser window and navigate to http://localhost:5000 to see live updates of quantites.
